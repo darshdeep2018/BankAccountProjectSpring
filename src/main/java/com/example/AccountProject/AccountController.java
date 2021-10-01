@@ -1,24 +1,32 @@
 package com.example.AccountProject;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+
+
+@RestController
+@RequestMapping("account")
 public class AccountController {
+	@Autowired
+	AccountService accountService;
+	@GetMapping("/")
+	List<Account> getAccounts(){
+		System.out.println("called");
+		return accountService.getAccounts();
+	}
 	
-	ArrayList<Account> accounts=new ArrayList<Account>();
-	
-	@GetMapping("/{ownerName}")
-	public Account getSavingsAccount(@PathVariable String ownerName) {
-		for(Account account:accounts) {
-			if(account.getOwnerName().equals(ownerName))
-				return account;
-		}
-		System.out.println("Account Not Found");
-		return null;
+	@GetMapping("/{id}")
+	public void getAccount(@PathVariable Integer id) {
+		
+		System.out.println("Account Found");
 	}
 	
 
@@ -26,7 +34,8 @@ public class AccountController {
 	String postcall(@RequestBody Account account) {
 		if(account.equals(null))
 			return "Invalid input";
-		accounts.add(account);
+		accountService.save(account);
+		System.out.println("called");
 		return "Account added successfully";
 	}
 	

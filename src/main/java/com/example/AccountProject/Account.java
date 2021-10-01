@@ -1,31 +1,72 @@
 package com.example.AccountProject;
 
-import java.time.LocalDate;
 import java.util.Date;
 
-import com.example.demo.Address;
-import com.example.demo.XYZBank;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Account{
 
 	private String ownerName;
-	private Address address;
+	private String address;
 	private int balanceAmount;
-	private LocalDate createdDate;
+	private String createdDate;
 	private String status;
+
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(int balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
 	public String getOwnerName() {
 		return ownerName;
-	}
-	
-	public Account(String ownerName, Address address) {
-		super();
-		this.ownerName = ownerName;
-		this.address = address;
-		this.balanceAmount=0;
-		this.createdDate=(java.time.LocalDate.now());
-		this.status="ACTIVE";
-		System.out.println("account Created");
 	}
 
 	public void depositMoney(int money) {
@@ -62,7 +103,7 @@ public class Account{
 
 	public void showDetails() {
 		System.out.println("Owner : "+ownerName);
-		System.out.println("Adress : "+address.city+" "+address.state+" "+address.pin);
+		System.out.println("Adress : "+address);
 		System.out.println("Account created on : "+createdDate);
 		System.out.println("Current Balance : "+balanceAmount);
 	}	
